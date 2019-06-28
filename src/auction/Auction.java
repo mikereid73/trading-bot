@@ -24,19 +24,19 @@ public class Auction {
         bidder1.init(quantity, cash);
         bidder2.init(quantity, cash);
 
-        final BidderScoreCard bidder1ScoreCard = new BidderScoreCard(quantity, cash);
-        final BidderScoreCard bidder2ScoreCard = new BidderScoreCard(quantity, cash);
+        BidderScoreCard bidder1ScoreCard = new BidderScoreCard(quantity, cash);
+        BidderScoreCard bidder2ScoreCard = new BidderScoreCard(quantity, cash);
 
         for (int round = 1; round <= quantity / 2; round++) {
 
             // get bidders next bids
-            final int bid1 = bidder1.placeBid();
-            final int bid2 = bidder2.placeBid();
+            int bid1 = bidder1.placeBid();
+            int bid2 = bidder2.placeBid();
 
             // reveal bids to each other
             bidder1.bids(bid1, bid2);
             bidder2.bids(bid2, bid1);
-            if(auctionListener != null) {
+            if (auctionListener != null) {
                 auctionListener.onBidsRevealed(bid1, bid2);
             }
 
@@ -82,9 +82,7 @@ public class Auction {
             else if (other == this) return 0;
             else if (quantity > other.quantity) return 1;
             else if (quantity < other.quantity) return -1;
-            else if (cash > other.cash) return 1;
-            else if (cash < other.cash) return -1;
-            else return 0;
+            else return Integer.compare(cash, other.cash);
         }
     }
 }
