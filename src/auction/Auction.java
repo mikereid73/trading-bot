@@ -11,6 +11,8 @@ public class Auction {
     private final int quantity;
     private final int cash;
 
+    private AuctionListener auctionListener;
+
     public Auction(Bidder bidder1, Bidder bidder2, int quantity, int cash) {
         this.bidder1 = Objects.requireNonNull(bidder1);
         this.bidder2 = Objects.requireNonNull(bidder2);
@@ -34,6 +36,9 @@ public class Auction {
             // reveal bids to each other
             bidder1.bids(bid1, bid2);
             bidder2.bids(bid2, bid1);
+            if(auctionListener != null) {
+                auctionListener.onBidsRevealed(bid1, bid2);
+            }
 
             bidder1ScoreCard.cash -= bid1;
             bidder2ScoreCard.cash -= bid2;
@@ -55,6 +60,10 @@ public class Auction {
         } else {
             return null;
         }
+    }
+
+    public void addAuctionListener(AuctionListener auctionListener) {
+        this.auctionListener = Objects.requireNonNull(auctionListener);
     }
 
     private static class BidderScoreCard implements Comparable<BidderScoreCard> {
