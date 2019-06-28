@@ -35,26 +35,47 @@ public class Auction {
             bidder1.bids(bid1, bid2);
             bidder2.bids(bid2, bid1);
 
-            bidder1ScoreCard.removeCash(bid1);
-            bidder2ScoreCard.removeCash(bid2);
+            bidder1ScoreCard.cash -= bid1;
+            bidder2ScoreCard.cash -= bid2;
 
             if (bid1 > bid2) {
-                bidder1ScoreCard.addQauntity(2);
+                bidder1ScoreCard.quantity += 2;
             } else if (bid2 > bid1) {
-                bidder2ScoreCard.addQauntity(2);
+                bidder2ScoreCard.quantity += 2;
             } else {
-                bidder1ScoreCard.addQauntity(1);
-                bidder2ScoreCard.addQauntity(1);
+                bidder1ScoreCard.quantity++;
+                bidder2ScoreCard.quantity++;
             }
         }
 
-        // decide who was the overall winner
         if (bidder1ScoreCard.compareTo(bidder2ScoreCard) > 0) {
             return bidder1;
         } else if (bidder1ScoreCard.compareTo(bidder2ScoreCard) < 0) {
             return bidder2;
         } else {
             return null;
+        }
+    }
+
+    private static class BidderScoreCard implements Comparable<BidderScoreCard> {
+
+        private int quantity;
+        private int cash;
+
+        public BidderScoreCard(int quantity, int cash) {
+            this.quantity = quantity;
+            this.cash = cash;
+        }
+
+        @Override
+        public int compareTo(BidderScoreCard other) {
+            if (other == null) return -1;
+            else if (other == this) return 0;
+            else if (quantity > other.quantity) return 1;
+            else if (quantity < other.quantity) return -1;
+            else if (cash > other.cash) return 1;
+            else if (cash < other.cash) return -1;
+            else return 0;
         }
     }
 }
