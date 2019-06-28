@@ -78,6 +78,7 @@ public class Auction {
 
         @Override
         public int compareTo(BidderScoreCard other) {
+            //TODO: fix this screwed up compare logic
             if (other == null) return -1;
             else if (other == this) return 0;
             else if (quantity > other.quantity) return 1;
