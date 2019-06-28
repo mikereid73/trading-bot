@@ -70,7 +70,7 @@ public class AuctionHouse implements AuctionListener {
         System.out.println("*************************************");
         System.out.println("******* L E A D E R B O A R D *******");
         System.out.println("*************************************");
-        Collections.sort(players, Collections.reverseOrder());
+        players.sort(Collections.reverseOrder());
         ListIterator<BidderWrapper> iterator = players.listIterator();
         while (iterator.hasNext()) {
             int index = iterator.nextIndex();
