@@ -22,13 +22,10 @@ public class Auction {
         bidder1.init(quantity, cash);
         bidder2.init(quantity, cash);
 
-        // temporary score tracker
-        int bidder1Score = 0;
-        int bidder2Score = 0;
-        int bidder1RemainingCash = cash;
-        int bidder2RemainingCash = cash;
+        final BidderScoreCard bidder1ScoreCard = new BidderScoreCard(quantity, cash);
+        final BidderScoreCard bidder2ScoreCard = new BidderScoreCard(quantity, cash);
 
-        for(int round = 1; round <= quantity / 2; round++) {
+        for (int round = 1; round <= quantity / 2; round++) {
 
             // get bidders next bids
             final int bid1 = bidder1.placeBid();
@@ -38,33 +35,26 @@ public class Auction {
             bidder1.bids(bid1, bid2);
             bidder2.bids(bid2, bid1);
 
-            bidder1RemainingCash -= bid1;
-            bidder2RemainingCash -= bid2;
+            bidder1ScoreCard.removeCash(bid1);
+            bidder2ScoreCard.removeCash(bid2);
 
-            if(bid1 > bid2) {
-                bidder1Score += 2;
-            } else if(bid2 > bid1) {
-                bidder2Score += 2;
+            if (bid1 > bid2) {
+                bidder1ScoreCard.addQauntity(2);
+            } else if (bid2 > bid1) {
+                bidder2ScoreCard.addQauntity(2);
             } else {
-                bidder1Score++;
-                bidder2Score++;
+                bidder1ScoreCard.addQauntity(1);
+                bidder2ScoreCard.addQauntity(1);
             }
         }
 
         // decide who was the overall winner
-        if(bidder1Score > bidder2Score) {
+        if (bidder1ScoreCard.compareTo(bidder2ScoreCard) > 0) {
             return bidder1;
-        } else if(bidder2Score > bidder1Score) {
+        } else if (bidder1ScoreCard.compareTo(bidder2ScoreCard) < 0) {
             return bidder2;
         } else {
-            // both bought the same quantity. User remaining cash to decide
-            if(bidder1RemainingCash > bidder1RemainingCash) {
-                return bidder1;
-            } else if(bidder2RemainingCash > bidder2RemainingCash) {
-                return bidder2;
-            }else {
-                return null;
-            }
+            return null;
         }
     }
 }
