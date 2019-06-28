@@ -11,43 +11,36 @@ import java.util.ListIterator;
 
 public class AuctionHouse implements AuctionListener {
 
+    private static final int QUANTITY = 20;
+    private static final int CASH = 100;
+
     public void open() {
-        final List<BidderWrapper> players = getPlayers();
+         List<BidderWrapper> players = getPlayers();
 
         for (BidderWrapper firstPlayer : players) {
-            String name = firstPlayer.getName();
-            System.out.println(name.toUpperCase());
             for (BidderWrapper secondPlayer : players) {
-                final Bidder bidder1 = firstPlayer.getBidder();
-                final Bidder bidder2 = secondPlayer.getBidder();
+                 Bidder bidder1 = firstPlayer.getBidder();
+                 Bidder bidder2 = secondPlayer.getBidder();
 
                 if (bidder1 == bidder2) {
                     continue;
                 }
 
-                String name2 = secondPlayer.getName();
-                System.out.println(name + " vs " + name2);
-
-                Auction auction = new Auction(bidder1, bidder2, 100, 250);
+                Auction auction = new Auction(bidder1, bidder2, QUANTITY, CASH);
                 auction.addAuctionListener(this);
                 Bidder winner = auction.run();
 
                 if (winner == bidder1) {
-                    System.out.println(name + " won!");
                     firstPlayer.recordWin();
                     secondPlayer.recordLoss();
                 } else if (winner == bidder2) {
-                    System.out.println(name2 + " won!");
                     secondPlayer.recordWin();
                     firstPlayer.recordWin();
                 } else {
-                    System.out.println("Draw!");
                     firstPlayer.recordDraw();
                     secondPlayer.recordDraw();
                 }
-                System.out.println();
             }
-            System.out.println();
         }
 
         printLeaderBoard(players);
@@ -55,7 +48,7 @@ public class AuctionHouse implements AuctionListener {
 
     @Override
     public void onBidsRevealed(int bid1, int bid2) {
-        System.out.printf("Bidder1 bid %d, Bidder2 bid %d\n", bid1, bid2);
+        // System.out.printf("Bidder1 bid %d, Bidder2 bid %d\n", bid1, bid2);
     }
 
     private List<BidderWrapper> getPlayers() {
@@ -73,6 +66,10 @@ public class AuctionHouse implements AuctionListener {
     }
 
     private void printLeaderBoard(List<BidderWrapper> players) {
+        System.out.println();
+        System.out.println("*************************************");
+        System.out.println("******* L E A D E R B O A R D *******");
+        System.out.println("*************************************");
         Collections.sort(players, Collections.reverseOrder());
         ListIterator<BidderWrapper> iterator = players.listIterator();
         while (iterator.hasNext()) {
