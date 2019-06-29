@@ -1,5 +1,8 @@
 package auction;
 
+/**
+ * The entry point of the application.
+ */
 public class Launcher {
 
     public static void main(String[] args) {
