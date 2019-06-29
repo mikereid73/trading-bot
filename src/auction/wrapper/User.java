@@ -2,7 +2,7 @@ package auction.wrapper;
 
 import auction.bidders.Bidder;
 
-public class BidderWrapper implements Comparable<BidderWrapper> {
+public class User implements Comparable<User> {
 
     private final String name;
 
@@ -20,7 +20,7 @@ public class BidderWrapper implements Comparable<BidderWrapper> {
 
     private int longestWinningStreak;
 
-    public BidderWrapper(String name, Bidder bidder) {
+    public User(String name, Bidder bidder) {
         this.name = name;
         this.bidder = bidder;
     }
@@ -67,19 +67,18 @@ public class BidderWrapper implements Comparable<BidderWrapper> {
         return draws;
     }
 
-    public int getWinningStreak() {
-        return winningStreak;
-    }
-
     public int getLongestWinningStreak() {
         return longestWinningStreak;
     }
 
     @Override
-    public int compareTo(BidderWrapper other) {
-        //TODO: fix this screwed up compare logic
+    public int compareTo(User other) {
         if (other == null) return 1;
-        else if (other == this) return 0;
-        return Integer.compare(wins, other.wins);
+        if (other == this) return 0;
+        if (wins > other.wins) return 1;
+        if (wins == other.wins) {
+            return Integer.compare(losses, other.losses);
+        }
+        return -1;
     }
 }
