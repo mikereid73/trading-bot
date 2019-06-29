@@ -2,7 +2,7 @@ package auction;
 
 import auction.bidders.Bidder;
 import auction.bidders.samples.RandomBidder;
-import auction.wrapper.BidderWrapper;
+import auction.wrapper.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +15,10 @@ public class AuctionHouse implements AuctionListener {
     private static final int CASH = 100;
 
     public void open() {
-         List<BidderWrapper> players = getPlayers();
+         List<User> players = getPlayers();
 
-        for (BidderWrapper firstPlayer : players) {
-            for (BidderWrapper secondPlayer : players) {
+        for (User firstPlayer : players) {
+            for (User secondPlayer : players) {
                  Bidder bidder1 = firstPlayer.getBidder();
                  Bidder bidder2 = secondPlayer.getBidder();
 
@@ -51,30 +51,30 @@ public class AuctionHouse implements AuctionListener {
         // System.out.printf("Bidder1 bid %d, Bidder2 bid %d\n", bid1, bid2);
     }
 
-    private List<BidderWrapper> getPlayers() {
-        List<BidderWrapper> players = new ArrayList<>();
-        players.add(new BidderWrapper("Mike", new RandomBidder()));
-        players.add(new BidderWrapper("Christie", new RandomBidder()));
-        players.add(new BidderWrapper("Niki", new RandomBidder()));
-        players.add(new BidderWrapper("Mark", new RandomBidder()));
-        players.add(new BidderWrapper("Miley", new RandomBidder()));
-        players.add(new BidderWrapper("Padraic", new RandomBidder()));
-        players.add(new BidderWrapper("Joe", new RandomBidder()));
-        players.add(new BidderWrapper("McDuff", new RandomBidder()));
-        players.add(new BidderWrapper("Dan", new RandomBidder()));
+    private List<User> getPlayers() {
+        List<User> players = new ArrayList<>();
+        players.add(new User("Mike", new RandomBidder()));
+        players.add(new User("Christie", new RandomBidder()));
+        players.add(new User("Niki", new RandomBidder()));
+        players.add(new User("Mark", new RandomBidder()));
+        players.add(new User("Miley", new RandomBidder()));
+        players.add(new User("Padraic", new RandomBidder()));
+        players.add(new User("Joe", new RandomBidder()));
+        players.add(new User("McDuff", new RandomBidder()));
+        players.add(new User("Dan", new RandomBidder()));
         return players;
     }
 
-    private void printLeaderBoard(List<BidderWrapper> players) {
+    private void printLeaderBoard(List<User> players) {
         System.out.println();
         System.out.println("*************************************");
         System.out.println("******* L E A D E R B O A R D *******");
         System.out.println("*************************************");
         players.sort(Collections.reverseOrder());
-        ListIterator<BidderWrapper> iterator = players.listIterator();
+        ListIterator<User> iterator = players.listIterator();
         while (iterator.hasNext()) {
             int index = iterator.nextIndex();
-            BidderWrapper player = iterator.next();
+            User player = iterator.next();
             System.out.println(
                     (index + 1) + ". "
                             + player.getName()
