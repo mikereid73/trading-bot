@@ -16,22 +16,22 @@ public class Auction {
     public Auction(Bidder bidder1, Bidder bidder2, int quantity, int cash) {
         this.bidder1 = Objects.requireNonNull(bidder1);
         this.bidder2 = Objects.requireNonNull(bidder2);
-        this.quantity = quantity;
-        this.cash = cash;
+        this.quantity = validateQuantity(quantity);
+        this.cash = validateCash(cash);
     }
 
     public Bidder run() {
         bidder1.init(quantity, cash);
         bidder2.init(quantity, cash);
 
-        BidderScoreCard bidder1ScoreCard = new BidderScoreCard(quantity, cash);
-        BidderScoreCard bidder2ScoreCard = new BidderScoreCard(quantity, cash);
+        final BidderScoreCard bidder1ScoreCard = new BidderScoreCard(quantity, cash);
+        final BidderScoreCard bidder2ScoreCard = new BidderScoreCard(quantity, cash);
 
         for (int round = 1; round <= quantity / 2; round++) {
 
             // get bidders next bids
-            int bid1 = bidder1.placeBid();
-            int bid2 = bidder2.placeBid();
+            final int bid1 = bidder1.placeBid();
+            final int bid2 = bidder2.placeBid();
 
             // reveal bids to each other
             bidder1.bids(bid1, bid2);
@@ -43,6 +43,7 @@ public class Auction {
             bidder1ScoreCard.cash -= bid1;
             bidder2ScoreCard.cash -= bid2;
 
+            // decide winner
             if (bid1 > bid2) {
                 bidder1ScoreCard.quantity += 2;
             } else if (bid2 > bid1) {
@@ -62,6 +63,20 @@ public class Auction {
         }
     }
 
+    private int validateQuantity(int quantity) {
+        if (quantity % 2 != 0) {
+            throw new IllegalArgumentException("quantity must be even");
+        }
+        return quantity;
+    }
+
+    private int validateCash(int cash) {
+        if (cash < 0) {
+            throw new IllegalArgumentException("cash cannot be less than zero");
+        }
+        return cash;
+    }
+
     public void addAuctionListener(AuctionListener auctionListener) {
         this.auctionListener = Objects.requireNonNull(auctionListener);
     }
@@ -71,7 +86,7 @@ public class Auction {
         private int quantity;
         private int cash;
 
-        public BidderScoreCard(int quantity, int cash) {
+        public BidderScoreCard(int quantity,  int cash) {
             this.quantity = quantity;
             this.cash = cash;
         }
