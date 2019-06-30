@@ -19,10 +19,10 @@ import java.util.ListIterator;
  */
 public class AuctionHouse implements AuctionListener {
 
-    /* the quantity available for auction */
+    /** the quantity available for auction **/
     private static final int QUANTITY = 20;
 
-    /* the cash available for auction */
+    /** the cash available for auction **/
     private static final int CASH = 100;
 
     /**
@@ -30,20 +30,20 @@ public class AuctionHouse implements AuctionListener {
      * Gather dummy Users, compete them against each other, and display the results;
      */
     public void open() {
-         List<User> users = getUsers();
-        for (User user1 : users) {
-            for (User user2 : users) {
-                 Bidder bidder1 = user1.getBidder();
-                 Bidder bidder2 = user2.getBidder();
+        final List<User> users = getUsers();
+        for (final User user1 : users) {
+            for (final User user2 : users) {
+                 final Bidder bidder1 = user1.getBidder();
+                 final Bidder bidder2 = user2.getBidder();
 
                 if (bidder1 == bidder2) {
                     continue;
                 }
 
-                Auction auction = new Auction(bidder1, bidder2, QUANTITY, CASH);
+                final Auction auction = new Auction(bidder1, bidder2, QUANTITY, CASH);
                 auction.addAuctionListener(this);
-                Bidder winner = auction.run();
 
+                final Bidder winner = auction.run();
                 if (winner == bidder1) {
                     user1.recordWin();
                     user2.recordLoss();
@@ -66,7 +66,7 @@ public class AuctionHouse implements AuctionListener {
      * @param bid2 the bid made by bidder2
      */
     @Override
-    public void onBidsRevealed(int bid1, int bid2) {
+    public void onBidsRevealed(final int bid1, final int bid2) {
         // System.out.printf("Bidder1 bid %d, Bidder2 bid %d\n", bid1, bid2);
     }
 
@@ -75,7 +75,7 @@ public class AuctionHouse implements AuctionListener {
      * @return a dummy set of Users
      */
     private List<User> getUsers() {
-        List<User> users = new ArrayList<>();
+        final List<User> users = new ArrayList<>();
         users.add(new User("Mike", new AverageBidder()));
         users.add(new User("Christie", new MedianBidder()));
         users.add(new User("Niki", new AnnoyingBidder()));
@@ -92,7 +92,7 @@ public class AuctionHouse implements AuctionListener {
      * Print out the results of the Auction
      * @param users the list of Users who took part
      */
-    private void printLeaderBoard(List<User> users) {
+    private void printLeaderBoard(final List<User> users) {
         System.out.println();
         System.out.println("*************************************");
         System.out.println("******* L E A D E R B O A R D *******");
