@@ -1,6 +1,9 @@
 package auction;
 
 import auction.bidders.Bidder;
+import auction.bidders.samples.AnnoyingBidder;
+import auction.bidders.samples.AverageBidder;
+import auction.bidders.samples.MedianBidder;
 import auction.bidders.samples.RandomBidder;
 import auction.wrapper.User;
 
@@ -73,15 +76,15 @@ public class AuctionHouse implements AuctionListener {
      */
     private List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("Mike", new RandomBidder()));
-        users.add(new User("Christie", new RandomBidder()));
-        users.add(new User("Niki", new RandomBidder()));
-        users.add(new User("Mark", new RandomBidder()));
-        users.add(new User("Miley", new RandomBidder()));
-        users.add(new User("Padraic", new RandomBidder()));
-        users.add(new User("Joe", new RandomBidder()));
-        users.add(new User("McDuff", new RandomBidder()));
-        users.add(new User("Dan", new RandomBidder()));
+        users.add(new User("Mike", new AverageBidder()));
+        users.add(new User("Christie", new MedianBidder()));
+        users.add(new User("Niki", new AnnoyingBidder()));
+        users.add(new User("Mark", new AverageBidder()));
+        users.add(new User("Miley", new MedianBidder()));
+        users.add(new User("Padraic", new AnnoyingBidder()));
+        users.add(new User("Joe", new AverageBidder()));
+        users.add(new User("McDuff", new MedianBidder()));
+        users.add(new User("Dan", new AnnoyingBidder()));
         return users;
     }
 
@@ -102,6 +105,7 @@ public class AuctionHouse implements AuctionListener {
             System.out.println(
                     (index + 1) + ". "
                             + current.getName()
+                            + " ("+current.getBidder().getClass().getSimpleName() + ")"
                             + " has " + current.getWins() + " wins,"
                             + current.getLosses() + " losses, and "
                             + current.getDraws() + " draws from "
