@@ -1,8 +1,22 @@
 package auction.bidders;
 
-public abstract class AbstractBidder implements Bidder{
+/**
+ * A base class for a Bidder which contains the quantity and initial cash for the Auction as well
+ * as basic implementations for the init and bids methods. These methods should be common among most implementations.
+ * The placeBid method should not be assumed and any implementation should be forced to provide it.
+ *
+ * @author Michael Reid
+ */
+public abstract class AbstractBidder implements Bidder {
 
+    /**
+     * The quantity available for Auction
+     **/
     protected int quantity;
+
+    /**
+     * The cash available to spend at Auction
+     **/
     protected int cash;
 
     @Override
@@ -15,4 +29,7 @@ public abstract class AbstractBidder implements Bidder{
     public void bids(int own, int other) {
         cash -= own;
     }
+
+    @Override
+    public abstract int placeBid();
 }
