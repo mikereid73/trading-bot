@@ -30,7 +30,7 @@ public class MedianBidder extends AbstractBidder {
                         .findFirst()
                         .getAsDouble()) + 1;
 
-        return median <= cash ? median : cash;
+        return getBidOrGetZero(median);
     }
 
     @Override

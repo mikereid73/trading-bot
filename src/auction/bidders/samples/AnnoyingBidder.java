@@ -21,6 +21,6 @@ public class AnnoyingBidder extends AbstractBidder {
     @Override
     public int placeBid() {
         int bid = lastBid + 1;
-        return bid <= cash ? bid : cash;
+        return getBidOrGetAll(bid);
     }
 }

@@ -21,7 +21,7 @@ public class AverageBidder extends AbstractBidder {
                 .average()
                 .orElse(0.0)
                 + 1;
-        return average <= cash ? average : cash;
+        return getBidOrGetZero(average);
     }
 
     @Override

@@ -32,4 +32,12 @@ public abstract class AbstractBidder implements Bidder {
 
     @Override
     public abstract int placeBid();
+
+    protected int getBidOrGetZero(int bid) {
+        return bid <= cash ? bid : 0;
+    }
+
+    protected int getBidOrGetAll(int bid) {
+        return bid <= cash ? bid : cash;
+    }
 }
