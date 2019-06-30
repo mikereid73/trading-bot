@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class RandomBidder extends AbstractBidder {
 
-    protected final Random random = new Random();
+    private final Random random = new Random();
 
     @Override
     public int placeBid() {
