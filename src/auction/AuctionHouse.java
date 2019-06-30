@@ -16,6 +16,8 @@ import java.util.ListIterator;
  * The AuctionHouse is used to simulate n number of auctions. It generates dummy data of players and
  * their bidders and pits them against each other. At the end it prints a brief summary in the form
  * of a LeaderBoard.
+ *
+ * @author Michael Reid
  */
 public class AuctionHouse implements AuctionListener {
 
@@ -33,9 +35,12 @@ public class AuctionHouse implements AuctionListener {
         final List<User> users = getUsers();
         for (final User user1 : users) {
             for (final User user2 : users) {
+                if(user1 == user2) {
+                    continue;
+                }
+
                  final Bidder bidder1 = user1.getBidder();
                  final Bidder bidder2 = user2.getBidder();
-
                 if (bidder1 == bidder2) {
                     continue;
                 }
@@ -66,7 +71,7 @@ public class AuctionHouse implements AuctionListener {
      * @param bid2 the bid made by bidder2
      */
     @Override
-    public void onBidsRevealed(final int bid1, final int bid2) {
+    public void onBidsRevealed(int bid1, int bid2) {
         // System.out.printf("Bidder1 bid %d, Bidder2 bid %d\n", bid1, bid2);
     }
 
@@ -92,7 +97,7 @@ public class AuctionHouse implements AuctionListener {
      * Print out the results of the Auction
      * @param users the list of Users who took part
      */
-    private void printLeaderBoard(final List<User> users) {
+    private void printLeaderBoard(List<User> users) {
         System.out.println();
         System.out.println("*************************************");
         System.out.println("******* L E A D E R B O A R D *******");
