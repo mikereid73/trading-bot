@@ -2,6 +2,7 @@ package auction;
 
 import auction.bidders.Bidder;
 import auction.bidders.samples.*;
+import auction.bidders.samples.strategy.LastPlusOneStratgey;
 import auction.wrapper.User;
 
 import java.util.ArrayList;
@@ -18,10 +19,14 @@ import java.util.ListIterator;
  */
 public class AuctionHouse implements AuctionListener {
 
-    /** the quantity available for auction **/
+    /**
+     * the quantity available for auction
+     **/
     private static final int QUANTITY = 20;
 
-    /** the cash available for auction **/
+    /**
+     * the cash available for auction
+     **/
     private static final int CASH = 100;
 
     /**
@@ -32,12 +37,12 @@ public class AuctionHouse implements AuctionListener {
         final List<User> users = getUsers();
         for (final User user1 : users) {
             for (final User user2 : users) {
-                if(user1 == user2) {
+                if (user1 == user2) {
                     continue;
                 }
 
-                 final Bidder bidder1 = user1.getBidder();
-                 final Bidder bidder2 = user2.getBidder();
+                final Bidder bidder1 = user1.getBidder();
+                final Bidder bidder2 = user2.getBidder();
                 if (bidder1 == bidder2) {
                     continue;
                 }
@@ -64,6 +69,7 @@ public class AuctionHouse implements AuctionListener {
 
     /**
      * A hook into the Auction. Provides the per round bids of the current Auction.
+     *
      * @param bid1 the bid made by bidder1
      * @param bid2 the bid made by bidder2
      */
@@ -74,21 +80,23 @@ public class AuctionHouse implements AuctionListener {
 
     /**
      * Returns a list of Users for the Auction
+     *
      * @return a dummy set of Users
      */
     private List<User> getUsers() {
         final List<User> users = new ArrayList<>();
-        users.add(new User("Mike", new SmartAnnoyingBidder()));
+        users.add(new User("Mike", new StrategyBidder(new LastPlusOneStratgey())));
         users.add(new User("Christie", new AverageBidder()));
         users.add(new User("Niki", new BudgetingBidder()));
         users.add(new User("Mark", new MedianBidder()));
         users.add(new User("Miley", new RandomBidder()));
-        users.add(new User("Padraic", new AnnoyingBidder()));
+        users.add(new User("Padraic", new LastPlusOneBidder()));
         return users;
     }
 
     /**
      * Print out the results of the Auction
+     *
      * @param users the list of Users who took part
      */
     private void printLeaderBoard(List<User> users) {
@@ -104,7 +112,7 @@ public class AuctionHouse implements AuctionListener {
             System.out.println(
                     (index + 1) + ". "
                             + current.getName()
-                            + " ("+current.getBidder().getClass().getSimpleName() + ")"
+                            + " (" + current.getBidder().getClass().getSimpleName() + ")"
                             + " has " + current.getWins() + " wins,"
                             + current.getLosses() + " losses, and "
                             + current.getDraws() + " draws from "

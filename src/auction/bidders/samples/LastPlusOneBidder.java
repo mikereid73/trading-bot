@@ -2,7 +2,7 @@ package auction.bidders.samples;
 
 import auction.bidders.AbstractBidder;
 
-public class AnnoyingBidder extends AbstractBidder {
+public class LastPlusOneBidder extends AbstractBidder {
 
     private int lastBid;
 

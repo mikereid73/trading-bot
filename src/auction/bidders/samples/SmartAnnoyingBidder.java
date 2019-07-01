@@ -1,6 +1,6 @@
 package auction.bidders.samples;
 
-public class SmartAnnoyingBidder extends AnnoyingBidder {
+public class SmartAnnoyingBidder extends LastPlusOneBidder {
 
     private int opponentsCash;
 
