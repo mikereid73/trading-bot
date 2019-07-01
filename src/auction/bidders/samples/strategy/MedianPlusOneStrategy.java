@@ -21,12 +21,12 @@ public class MedianPlusOneStrategy implements BiddingStrategy {
                         .skip(opponentWinningBids.size() / 2 - 1)
                         .limit(2)
                         .average()
-                        .getAsDouble() :
+                        .orElse(0.0) :
                 opponentWinningBids.stream()
                         .mapToDouble(Integer::intValue)
                         .skip(opponentWinningBids.size() / 2)
                         .findFirst()
-                        .getAsDouble()) + 1;
+                        .orElse(0.0)) + 1;
     }
 
     @Override

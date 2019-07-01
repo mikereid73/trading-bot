@@ -40,4 +40,9 @@ public abstract class AbstractBidder implements Bidder {
     protected int getBidOrGetAll(int bid) {
         return bid <= cash ? bid : cash;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

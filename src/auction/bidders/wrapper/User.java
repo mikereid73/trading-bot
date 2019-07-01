@@ -1,4 +1,4 @@
-package auction.wrapper;
+package auction.bidders.wrapper;
 
 import auction.bidders.Bidder;
 

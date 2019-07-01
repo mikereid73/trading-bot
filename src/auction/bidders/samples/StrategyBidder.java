@@ -27,6 +27,11 @@ public class StrategyBidder extends AbstractBidder {
     }
 
     public void setStrategy(BiddingStrategy strategy) {
-        this.strategy = strategy;
+        this.strategy = Objects.requireNonNull(strategy);
+    }
+
+    @Override
+    public String toString() {
+        return "StrategyBidder {" + strategy.getClass().getSimpleName() + '}';
     }
 }

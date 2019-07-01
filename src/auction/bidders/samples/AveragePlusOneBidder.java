@@ -5,7 +5,7 @@ import auction.bidders.AbstractBidder;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AverageBidder extends AbstractBidder {
+public class AveragePlusOneBidder extends AbstractBidder {
 
     private List<Integer> winningBids = new LinkedList<>();
 

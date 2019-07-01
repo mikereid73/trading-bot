@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MedianBidder extends AbstractBidder {
+public class MedianPlusOneBidder extends AbstractBidder {
 
     private List<Integer> opponentWinningBids = new LinkedList<>();
 

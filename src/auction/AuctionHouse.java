@@ -3,7 +3,7 @@ package auction;
 import auction.bidders.Bidder;
 import auction.bidders.samples.*;
 import auction.bidders.samples.strategy.LastPlusOneStratgey;
-import auction.wrapper.User;
+import auction.bidders.wrapper.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,9 +86,20 @@ public class AuctionHouse implements AuctionListener {
     private List<User> getUsers() {
         final List<User> users = new ArrayList<>();
         users.add(new User("Mike", new StrategyBidder(new LastPlusOneStratgey())));
-        users.add(new User("Christie", new AverageBidder()));
-        users.add(new User("Niki", new BudgetingBidder()));
-        users.add(new User("Mark", new MedianBidder()));
+        users.add(new User("Christie", new AveragePlusOneBidder()));
+        users.add(new User("Niki", new ZeroBidder()));
+        users.add(new User("Mark", new MedianPlusOneBidder()));
+        users.add(new User("Miley", new RandomBidder()));
+        users.add(new User("Padraic", new LastPlusOneBidder()));
+        return users;
+    }
+
+    private List<User> getStrategyUsers() {
+        final List<User> users = new ArrayList<>();
+        users.add(new User("Mike", new StrategyBidder(new LastPlusOneStratgey())));
+        users.add(new User("Christie", new AveragePlusOneBidder()));
+        users.add(new User("Niki", new ZeroBidder()));
+        users.add(new User("Mark", new MedianPlusOneBidder()));
         users.add(new User("Miley", new RandomBidder()));
         users.add(new User("Padraic", new LastPlusOneBidder()));
         return users;
@@ -112,7 +123,7 @@ public class AuctionHouse implements AuctionListener {
             System.out.println(
                     (index + 1) + ". "
                             + current.getName()
-                            + " (" + current.getBidder().getClass().getSimpleName() + ")"
+                            + " (" + current.getBidder() + ")"
                             + " has " + current.getWins() + " wins,"
                             + current.getLosses() + " losses, and "
                             + current.getDraws() + " draws from "
