@@ -2,7 +2,7 @@ package auction.bidders.samples.strategy;
 
 import java.util.Random;
 
-public class RandomStrategy implements BiddingStrategy {
+public class RandomStrategy extends AbstractStrategy {
 
     private final Random random = new Random();
 

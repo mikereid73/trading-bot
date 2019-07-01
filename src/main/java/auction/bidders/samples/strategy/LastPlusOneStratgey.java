@@ -1,6 +1,6 @@
 package auction.bidders.samples.strategy;
 
-public class LastPlusOneStratgey implements BiddingStrategy {
+public class LastPlusOneStratgey extends AbstractStrategy {
 
     private int lastBid;
 

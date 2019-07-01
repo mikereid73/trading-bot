@@ -1,6 +1,6 @@
 package auction.bidders.samples.strategy;
 
-public class ZeroStrategy implements BiddingStrategy {
+public class ZeroStrategy extends AbstractStrategy {
 
     @Override
     public int calculateBid(int cash) {

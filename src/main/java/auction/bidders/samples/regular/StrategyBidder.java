@@ -32,6 +32,6 @@ public class StrategyBidder extends AbstractBidder {
 
     @Override
     public String toString() {
-        return "StrategyBidder {" + strategy.getClass().getSimpleName() + '}';
+        return "StrategyBidder {" + strategy + '}';
     }
 }

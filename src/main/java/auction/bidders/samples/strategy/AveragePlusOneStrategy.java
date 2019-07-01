@@ -3,7 +3,7 @@ package auction.bidders.samples.strategy;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AveragePlusOneStrategy implements BiddingStrategy {
+public class AveragePlusOneStrategy extends AbstractStrategy {
 
     private List<Integer> opponentswinningBids = new LinkedList<>();
 
