@@ -1,4 +1,4 @@
-package auction.bidders.wrapper;
+package auction;
 
 import auction.bidders.Bidder;
 
@@ -153,8 +153,23 @@ public class User implements Comparable<User> {
         if (other == this) return 0;
         if (wins > other.wins) return 1;
         if (wins == other.wins) {
-            return Integer.compare(losses, other.losses);
+            if(losses < other.losses) return 1;
+            if(losses > other.losses) return -1;
+            if(losses == other.losses) {
+                return Integer.compare(longestWinningStreak, other.longestWinningStreak);
+            }
         }
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        return name +
+                " (" + bidder + ")" +
+                ", auctions: " + auctions +
+                ", wins: " + wins +
+                ", losses: " + losses +
+                ", draws: " + draws +
+                ", longest winning streak:" + longestWinningStreak;
     }
 }

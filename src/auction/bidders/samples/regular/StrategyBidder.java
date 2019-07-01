@@ -1,4 +1,4 @@
-package auction.bidders.samples;
+package auction.bidders.samples.regular;
 
 import auction.bidders.AbstractBidder;
 import auction.bidders.samples.strategy.BiddingStrategy;

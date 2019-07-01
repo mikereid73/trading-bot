@@ -1,9 +1,8 @@
 package auction;
 
 import auction.bidders.Bidder;
-import auction.bidders.samples.*;
+import auction.bidders.samples.regular.*;
 import auction.bidders.samples.strategy.LastPlusOneStratgey;
-import auction.bidders.wrapper.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,14 +120,7 @@ public class AuctionHouse implements AuctionListener {
             int index = iterator.nextIndex();
             User current = iterator.next();
             System.out.println(
-                    (index + 1) + ". "
-                            + current.getName()
-                            + " (" + current.getBidder() + ")"
-                            + " has " + current.getWins() + " wins,"
-                            + current.getLosses() + " losses, and "
-                            + current.getDraws() + " draws from "
-                            + current.getAuctions() + " auctions. "
-                            + "Longest winning streak: " + current.getLongestWinningStreak()
+                    (index + 1) + ". " + current
             );
         }
     }
