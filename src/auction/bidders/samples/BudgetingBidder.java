@@ -9,9 +9,7 @@ public class BudgetingBidder extends AbstractBidder {
     @Override
     public void init(int quantity, int cash) {
         super.init(quantity, cash);
-
-        int rounds = quantity / 2;
-        bid = cash / rounds;
+        bid = cash / (quantity / 2);
     }
 
     @Override

@@ -11,6 +11,12 @@ public class MedianBidder extends AbstractBidder {
     private List<Integer> opponentWinningBids = new LinkedList<>();
 
     @Override
+    public void init(int quantity, int cash) {
+        super.init(quantity, cash);
+        opponentWinningBids.clear();
+    }
+
+    @Override
     public int placeBid() {
         if(opponentWinningBids.size() == 0) {
             return 1;
@@ -36,7 +42,6 @@ public class MedianBidder extends AbstractBidder {
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
-
         if (other > own) {
             opponentWinningBids.add(other);
         }

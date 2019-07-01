@@ -1,10 +1,7 @@
 package auction;
 
 import auction.bidders.Bidder;
-import auction.bidders.samples.AnnoyingBidder;
-import auction.bidders.samples.AverageBidder;
-import auction.bidders.samples.MedianBidder;
-import auction.bidders.samples.RandomBidder;
+import auction.bidders.samples.*;
 import auction.wrapper.User;
 
 import java.util.ArrayList;
@@ -81,15 +78,12 @@ public class AuctionHouse implements AuctionListener {
      */
     private List<User> getUsers() {
         final List<User> users = new ArrayList<>();
-        users.add(new User("Mike", new AverageBidder()));
-        users.add(new User("Christie", new MedianBidder()));
-        users.add(new User("Niki", new AnnoyingBidder()));
-        users.add(new User("Mark", new AverageBidder()));
-        users.add(new User("Miley", new MedianBidder()));
+        users.add(new User("Mike", new SmartAnnoyingBidder()));
+        users.add(new User("Christie", new AverageBidder()));
+        users.add(new User("Niki", new BudgetingBidder()));
+        users.add(new User("Mark", new MedianBidder()));
+        users.add(new User("Miley", new RandomBidder()));
         users.add(new User("Padraic", new AnnoyingBidder()));
-        users.add(new User("Joe", new AverageBidder()));
-        users.add(new User("McDuff", new MedianBidder()));
-        users.add(new User("Dan", new AnnoyingBidder()));
         return users;
     }
 

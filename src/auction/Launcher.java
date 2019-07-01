@@ -2,6 +2,8 @@ package auction;
 
 /**
  * The entry point of the application.
+ *
+ * @author Michael Reid
  */
 public class Launcher {
 
