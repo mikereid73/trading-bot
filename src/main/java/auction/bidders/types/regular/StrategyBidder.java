@@ -2,6 +2,9 @@ package auction.bidders.types.regular;
 
 import auction.bidders.AbstractBidder;
 import auction.bidders.types.strategy.BiddingStrategy;
+import auction.bidders.types.strategy.LastPlusOneStratgey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
@@ -14,33 +17,49 @@ import java.util.Objects;
  */
 public class StrategyBidder extends AbstractBidder {
 
+    private static final Logger logger = LoggerFactory.getLogger(StrategyBidder.class);
+
+    private final BiddingStrategy defaultStrategy;
     /**
      * Bidding strategy to decide bidding amounts
      */
-    private BiddingStrategy strategy;
+    private BiddingStrategy currentStrategy;
+
+    private int opponentsCash;
 
     /**
      * Initialize with an initial strategy
      *
-     * @param strategy the initial strategy
+     * @param defaultStrategy the initial strategy which is used as default when new rounds start
      */
-    public StrategyBidder(BiddingStrategy strategy) {
-        this.strategy = Objects.requireNonNull(strategy);
+    public StrategyBidder(BiddingStrategy defaultStrategy) {
+        this.defaultStrategy = Objects.requireNonNull(defaultStrategy);
+    }
+
+    @Override
+    public void init(int quantity, int cash) {
+        super.init(quantity, cash);
+        opponentsCash = cash;
+
+        currentStrategy = defaultStrategy;
     }
 
     @Override
     public int placeBid() {
         // tell the strategy to calculate our bids
-        int bid = strategy.calculateBid(cash);
+        int bid = currentStrategy.calculateBid(cash);
         return getBidOrGetZero(bid);
     }
 
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
+        opponentsCash -= other;
+
+        checkAndChangeStrategy();
 
         // let the strategy know about the newest bids
-        strategy.showBids(own, other);
+        currentStrategy.showBids(own, other);
     }
 
     /**
@@ -49,11 +68,23 @@ public class StrategyBidder extends AbstractBidder {
      * @param strategy the new strategy
      */
     public void setStrategy(BiddingStrategy strategy) {
-        this.strategy = Objects.requireNonNull(strategy);
+        this.currentStrategy = Objects.requireNonNull(strategy);
+    }
+
+    /**
+     * A VERY BASIC concept for adapting the bidding logic.
+     */
+    private void checkAndChangeStrategy() {
+        logger.debug("checking for possible strategy change");
+        // they have no cash left, just bid 1 to win
+        if (opponentsCash == 0 && !(currentStrategy instanceof LastPlusOneStratgey)) {
+            logger.debug("opponent has 0 cash remaining. switching {} to LastPlusOneBidder strategy. ", currentStrategy);
+            currentStrategy = new LastPlusOneStratgey();
+        }
     }
 
     @Override
     public String toString() {
-        return "StrategyBidder {" + strategy + '}';
+        return "StrategyBidder {" + currentStrategy + '}';
     }
 }

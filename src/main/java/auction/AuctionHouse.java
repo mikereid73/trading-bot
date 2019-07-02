@@ -3,6 +3,7 @@ package auction;
 import auction.bidders.Bidder;
 import auction.bidders.types.regular.*;
 import auction.bidders.types.strategy.LastPlusOneStratgey;
+import auction.bidders.types.strategy.MedianPlusOneStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,7 +85,7 @@ public class AuctionHouse implements AuctionListener {
      */
     private List<User> getUsers() {
         final List<User> users = new ArrayList<>();
-        users.add(new User("Mike", new StrategyBidder(new LastPlusOneStratgey())));
+        users.add(new User("Mike", new StrategyBidder(new MedianPlusOneStrategy())));
         users.add(new User("Christie", new AveragePlusOneBidder()));
         users.add(new User("Niki", new ZeroBidder()));
         users.add(new User("Mark", new MedianPlusOneBidder()));
