@@ -5,7 +5,7 @@ import auction.bidders.Bidder;
 import java.util.Objects;
 
 /**
- * Auction class
+ * Auction class to simulate an Auction between two Bidder implementations
  *
  * @author Michael Reid
  */
@@ -73,7 +73,7 @@ public class Auction {
             int bid1 = bidder1.placeBid();
             int bid2 = bidder2.placeBid();
 
-            // check if a bidder can afford (cheating) it otherwise they pay 0
+            // check if a bidder can afford it (and not cheating) otherwise they forfeit and pay 0
             if (bid1 > bidder1ScoreCard.cash) {
                 bid1 = 0;
             }

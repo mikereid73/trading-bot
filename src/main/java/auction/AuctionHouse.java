@@ -1,8 +1,8 @@
 package auction;
 
 import auction.bidders.Bidder;
-import auction.bidders.samples.regular.*;
-import auction.bidders.samples.strategy.LastPlusOneStratgey;
+import auction.bidders.types.regular.*;
+import auction.bidders.types.strategy.LastPlusOneStratgey;
 
 import java.util.ArrayList;
 import java.util.Collections;

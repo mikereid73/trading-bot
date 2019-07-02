@@ -33,10 +33,22 @@ public abstract class AbstractBidder implements Bidder {
     @Override
     public abstract int placeBid();
 
+    /**
+     * Returns the desired bid if there is enough cash available otherwise returns zero
+     *
+     * @param bid the desired bid
+     * @return the desired bid if bid >= cash otherwise returns zero
+     */
     protected int getBidOrGetZero(int bid) {
         return bid <= cash ? bid : 0;
     }
 
+    /**
+     * Returns the desired bid if there is enough cash available other wise returns remaining cash
+     *
+     * @param bid the desired bid
+     * @return the desired bid if bid >= cash otherwise returns remaining cash
+     */
     protected int getBidOrGetAll(int bid) {
         return bid <= cash ? bid : cash;
     }

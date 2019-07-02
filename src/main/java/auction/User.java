@@ -1,7 +1,6 @@
 package auction;
 
 import auction.bidders.Bidder;
-import lombok.Getter;
 
 /**
  * User is a wrapper for a Bidder to to keep track of their progress. This includes tracking
@@ -9,7 +8,6 @@ import lombok.Getter;
  *
  * @author Michael Reid
  */
-@Getter
 public class User implements Comparable<User> {
 
     /**
@@ -23,7 +21,7 @@ public class User implements Comparable<User> {
     private final Bidder bidder;
 
     /**
-     * Number of auctions taken part int
+     * Number of auctions taken part in
      **/
     private int auctions;
 
@@ -98,6 +96,41 @@ public class User implements Comparable<User> {
 
     private void updateLongestWinningStreak() {
         longestWinningStreak = Math.max(currentWinningStreak, longestWinningStreak);
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public Bidder getBidder() {
+        return bidder;
+    }
+
+
+    public int getAuctions() {
+        return auctions;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public int getLosses() {
+        return losses;
+    }
+
+    public int getDraws() {
+        return draws;
+    }
+
+    public int getCurrentWinningStreak() {
+        return currentWinningStreak;
+    }
+
+    public int getLongestWinningStreak() {
+        return longestWinningStreak;
     }
 
     /**

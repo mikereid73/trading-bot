@@ -2,6 +2,8 @@ package auction;
 
 /**
  * A simple callback interface to allow for a hook into the bidding process
+ *
+ * @author Michael Reid
  */
 public interface AuctionListener {
     /**

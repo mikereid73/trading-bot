@@ -1,4 +1,4 @@
-package auction.bidders.samples.strategy;
+package auction.bidders.types.strategy;
 
 public class ZeroStrategy extends AbstractStrategy {
 
