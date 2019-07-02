@@ -9,6 +9,7 @@ import java.util.Random;
  */
 public class RandomStrategy extends AbstractStrategy {
 
+    /** Random number generator **/
     private final Random random = new Random();
 
     @Override

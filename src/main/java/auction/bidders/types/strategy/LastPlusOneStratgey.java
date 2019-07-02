@@ -7,6 +7,9 @@ package auction.bidders.types.strategy;
  */
 public class LastPlusOneStratgey extends AbstractStrategy {
 
+    /**
+     * The opponents last bid
+     */
     private int lastBid;
 
     @Override

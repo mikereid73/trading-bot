@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class AveragePlusOneStrategy extends AbstractStrategy {
 
+    /**
+     * List of all winning bids only.
+     */
     private final List<Integer> winningBids = new LinkedList<>();
 
     @Override
