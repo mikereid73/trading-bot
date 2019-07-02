@@ -1,5 +1,8 @@
 package auction.bidders.types.strategy;
 
+/**
+ * Always bids zero
+ */
 public class ZeroStrategy extends AbstractStrategy {
 
     @Override

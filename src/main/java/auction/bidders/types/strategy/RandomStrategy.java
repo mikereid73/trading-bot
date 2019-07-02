@@ -2,6 +2,11 @@ package auction.bidders.types.strategy;
 
 import java.util.Random;
 
+/**
+ * Bids a random amount of cash.
+ *
+ * @author Michael Reid
+ */
 public class RandomStrategy extends AbstractStrategy {
 
     private final Random random = new Random();
