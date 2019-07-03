@@ -14,34 +14,31 @@ import java.util.List;
  */
 public class MedianPlusOneBidder extends AbstractBidder {
 
-    /**
-     * List of all winning bids only.
-     */
-    private final List<Integer> winningBids = new LinkedList<>();
+    private final List<Integer> winningBidsList = new LinkedList<>();
 
     @Override
     public void init(int quantity, int cash) {
         super.init(quantity, cash);
-        winningBids.clear();
+        winningBidsList.clear();
     }
 
     @Override
     public int placeBid() {
-        if (winningBids.size() == 0) {
+        if (winningBidsList.size() == 0) {
             return 1;
         }
 
-        winningBids.sort(Comparator.reverseOrder());
-        int median = (int) (winningBids.size() % 2 == 0 ?
-                winningBids.stream()
+        winningBidsList.sort(Comparator.reverseOrder());
+        int median = (int) (winningBidsList.size() % 2 == 0 ?
+                winningBidsList.stream()
                         .mapToDouble(Integer::intValue)
-                        .skip(winningBids.size() / 2 - 1)
+                        .skip(winningBidsList.size() / 2 - 1)
                         .limit(2)
                         .average()
                         .getAsDouble() :
-                winningBids.stream()
+                winningBidsList.stream()
                         .mapToDouble(Integer::intValue)
-                        .skip(winningBids.size() / 2)
+                        .skip(winningBidsList.size() / 2)
                         .findFirst()
                         .getAsDouble()) + 1;
 
@@ -52,9 +49,9 @@ public class MedianPlusOneBidder extends AbstractBidder {
     public void bids(int own, int other) {
         super.bids(own, other);
         if (own > other) {
-            winningBids.add(own);
+            winningBidsList.add(own);
         } else if (other > own) {
-            winningBids.add(other);
+            winningBidsList.add(other);
         }
     }
 }

@@ -10,14 +10,11 @@ import java.util.List;
  */
 public class AveragePlusOneStrategy extends AbstractStrategy {
 
-    /**
-     * List of all winning bids only.
-     */
-    private final List<Integer> winningBids = new LinkedList<>();
+    private final List<Integer> winningBidsList = new LinkedList<>();
 
     @Override
     public int calculateBid(int cash) {
-        return (int) winningBids.stream()
+        return (int) winningBidsList.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElse(0.0)
@@ -27,9 +24,9 @@ public class AveragePlusOneStrategy extends AbstractStrategy {
     @Override
     public void showBids(int own, int other) {
         if (own > other) {
-            winningBids.add(own);
+            winningBidsList.add(own);
         } else if (other > own) {
-            winningBids.add(other);
+            winningBidsList.add(other);
         }
     }
 }

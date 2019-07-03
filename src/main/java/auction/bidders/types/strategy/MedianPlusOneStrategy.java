@@ -11,28 +11,25 @@ import java.util.List;
  */
 public class MedianPlusOneStrategy extends AbstractStrategy {
 
-    /**
-     * List of all winning bids only.
-     */
-    private final List<Integer> winningBids = new LinkedList<>();
+    private final List<Integer> winningBidsList = new LinkedList<>();
 
     @Override
     public int calculateBid(int cash) {
-        if (winningBids.size() == 0) {
+        if (winningBidsList.size() == 0) {
             return 1;
         }
 
-        winningBids.sort(Comparator.reverseOrder());
-        return (int) (winningBids.size() % 2 == 0 ?
-                winningBids.stream()
+        winningBidsList.sort(Comparator.reverseOrder());
+        return (int) (winningBidsList.size() % 2 == 0 ?
+                winningBidsList.stream()
                         .mapToDouble(Integer::intValue)
-                        .skip(winningBids.size() / 2 - 1)
+                        .skip(winningBidsList.size() / 2 - 1)
                         .limit(2)
                         .average()
                         .orElse(0.0) :
-                winningBids.stream()
+                winningBidsList.stream()
                         .mapToDouble(Integer::intValue)
-                        .skip(winningBids.size() / 2)
+                        .skip(winningBidsList.size() / 2)
                         .findFirst()
                         .orElse(0.0)) + 1;
     }
@@ -40,9 +37,9 @@ public class MedianPlusOneStrategy extends AbstractStrategy {
     @Override
     public void showBids(int own, int other) {
         if (own > other) {
-            winningBids.add(own);
+            winningBidsList.add(own);
         } else if (other > own) {
-            winningBids.add(other);
+            winningBidsList.add(other);
         }
     }
 }

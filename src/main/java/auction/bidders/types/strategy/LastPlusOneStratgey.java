@@ -7,18 +7,15 @@ package auction.bidders.types.strategy;
  */
 public class LastPlusOneStratgey extends AbstractStrategy {
 
-    /**
-     * The opponents last bid
-     */
-    private int lastBid;
+    private int opponentsPreviousBid;
 
     @Override
     public int calculateBid(int cash) {
-        return lastBid + 1;
+        return opponentsPreviousBid + 1;
     }
 
     @Override
     public void showBids(int own, int other) {
-        lastBid = other;
+        opponentsPreviousBid = other;
     }
 }

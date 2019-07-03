@@ -11,7 +11,6 @@ import java.util.Random;
  */
 public class RandomBidder extends AbstractBidder {
 
-    /** Random number generator **/
     private final Random random = new Random();
 
     @Override

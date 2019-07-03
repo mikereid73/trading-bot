@@ -20,18 +20,9 @@ public class StrategyBidder extends AbstractBidder {
     private static final Logger logger = LoggerFactory.getLogger(StrategyBidder.class);
 
     private final BiddingStrategy defaultStrategy;
-    /**
-     * Bidding strategy to decide bidding amounts
-     */
     private BiddingStrategy currentStrategy;
-
     private int opponentsCash;
 
-    /**
-     * Initialize with an initial strategy
-     *
-     * @param defaultStrategy the initial strategy which is used as default when new rounds start
-     */
     public StrategyBidder(BiddingStrategy defaultStrategy) {
         this.defaultStrategy = Objects.requireNonNull(defaultStrategy);
     }
@@ -39,8 +30,8 @@ public class StrategyBidder extends AbstractBidder {
     @Override
     public void init(int quantity, int cash) {
         super.init(quantity, cash);
-        opponentsCash = cash;
 
+        opponentsCash = cash;
         currentStrategy = defaultStrategy;
     }
 
@@ -54,8 +45,8 @@ public class StrategyBidder extends AbstractBidder {
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
-        opponentsCash -= other;
 
+        opponentsCash -= other;
         checkAndChangeStrategy();
 
         // let the strategy know about the newest bids
@@ -63,19 +54,9 @@ public class StrategyBidder extends AbstractBidder {
     }
 
     /**
-     * Set the BiddingStrategy implementation to use
-     *
-     * @param strategy the new strategy
-     */
-    public void setStrategy(BiddingStrategy strategy) {
-        this.currentStrategy = Objects.requireNonNull(strategy);
-    }
-
-    /**
      * A VERY BASIC concept for adapting the bidding logic.
      */
     private void checkAndChangeStrategy() {
-        logger.debug("checking for possible strategy change");
         // they have no cash left, just bid 1 to win
         if (opponentsCash == 0 && !(currentStrategy instanceof LastPlusOneStratgey)) {
             logger.debug("opponent has 0 cash remaining. switching {} to LastPlusOneBidder strategy. ", currentStrategy);

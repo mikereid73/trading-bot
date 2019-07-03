@@ -10,26 +10,23 @@ import auction.bidders.AbstractBidder;
  */
 public class LastPlusOneBidder extends AbstractBidder {
 
-    /**
-     * The opponents last bid
-     */
-    private int lastBid;
+    private int opponentsPreviousBid;
 
     @Override
     public void init(int quantity, int cash) {
         super.init(quantity, cash);
-        lastBid = 0;
+        opponentsPreviousBid = 0;
     }
 
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
-        lastBid = other;
+        opponentsPreviousBid = other;
     }
 
     @Override
     public int placeBid() {
-        int bid = lastBid + 1;
+        int bid = opponentsPreviousBid + 1;
         return getBidOrGetAll(bid);
     }
 }

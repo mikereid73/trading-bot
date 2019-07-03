@@ -10,59 +10,22 @@ import auction.bidders.Bidder;
  */
 public class User implements Comparable<User> {
 
-    /**
-     * Users name
-     **/
     private final String name;
-
-    /**
-     * The bidder implementation used
-     **/
     private final Bidder bidder;
-
-    /**
-     * Number of auctions taken part in
-     **/
     private int auctions;
-
-    /**
-     * Number of wins at an auction
-     **/
     private int wins;
-
-    /**
-     * Number of losses at an auction
-     **/
     private int losses;
-
-    /**
-     * Number of draws at an auction
-     **/
     private int draws;
-
-    /**
-     * Current amount of consecutive wins
-     **/
     private int currentWinningStreak;
-
-    /**
-     * Longest run of consecutive wins
-     **/
     private int longestWinningStreak;
 
-    /**
-     * Create a new User with a name and Bidder implementation
-     *
-     * @param name   the User name
-     * @param bidder the bidder implementation
-     */
     public User(String name, Bidder bidder) {
         this.name = name;
         this.bidder = bidder;
     }
 
     /**
-     * Logs a win for this User and updates their winning streak.
+     * Logs a win for this user and updates their winning streak.
      */
     public void recordWin() {
         auctions++;
@@ -72,7 +35,7 @@ public class User implements Comparable<User> {
     }
 
     /**
-     * Logs a loss for this User and resets their winning streak.
+     * Logs a loss for this user and resets their winning streak.
      */
     public void recordLoss() {
         auctions++;
@@ -98,39 +61,12 @@ public class User implements Comparable<User> {
         longestWinningStreak = Math.max(currentWinningStreak, longestWinningStreak);
     }
 
-
     public String getName() {
         return name;
     }
 
-
     public Bidder getBidder() {
         return bidder;
-    }
-
-
-    public int getAuctions() {
-        return auctions;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public int getLosses() {
-        return losses;
-    }
-
-    public int getDraws() {
-        return draws;
-    }
-
-    public int getCurrentWinningStreak() {
-        return currentWinningStreak;
-    }
-
-    public int getLongestWinningStreak() {
-        return longestWinningStreak;
     }
 
     /**

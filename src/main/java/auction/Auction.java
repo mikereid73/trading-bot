@@ -157,20 +157,12 @@ public class Auction {
      */
     private static class BidderScoreCard implements Comparable<BidderScoreCard> {
 
-        /**
-         * The quantity successfully purchased at Auction
-         **/
+        /* The quantity successfully purchased at auction */
         private int quantity;
 
-        /**
-         * The remaining cash for this Auction
-         **/
+        /* The remaining cash for the auction */
         private int cash;
 
-        /**
-         * @param quantity the starting quantity for the Auction
-         * @param cash     the starting cash for the Auction
-         */
         public BidderScoreCard(int quantity, int cash) {
             this.quantity = quantity;
             this.cash = cash;
