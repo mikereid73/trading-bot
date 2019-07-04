@@ -88,7 +88,7 @@ public class AuctionHouse implements AuctionListener {
         //users.add(new User("Niki", new ZeroBidder()));
         users.add(new User("Mark", new MedianPlusOneBidder()));
         users.add(new User("Miley", new RandomBidder()));
-        users.add(new User("Padraic", new LastPlusOneBidder()));
+        users.add(new User("Padraic", new PreviousPlusOneBidder()));
         users.add(new User("Dan", new UnitBidder(3)));
         return users;
     }

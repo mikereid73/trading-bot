@@ -18,6 +18,9 @@ public class StrategyBidder extends AbstractBidder {
     private final BiddingStrategy defaultStrategy;
     private BiddingStrategy currentStrategy;
 
+    private int totalBiddingRounds;
+    private int currentRound;
+
     private int opponentsCash;
 
     public StrategyBidder(BiddingStrategy defaultStrategy) {
@@ -30,6 +33,8 @@ public class StrategyBidder extends AbstractBidder {
 
         opponentsCash = cash;
         currentStrategy = defaultStrategy;
+
+        totalBiddingRounds = quantity / 2;
     }
 
     @Override
@@ -43,6 +48,8 @@ public class StrategyBidder extends AbstractBidder {
     public void bids(int own, int other) {
         super.bids(own, other);
 
+        currentRound++;
+
         opponentsCash -= other;
 
         // let the strategy know about the newest bids
@@ -54,9 +61,13 @@ public class StrategyBidder extends AbstractBidder {
      * A VERY BASIC concept for adapting the bidding logic.
      */
     private void checkAndChangeStrategy() {
-        if (opponentsCash == 0 && !(currentStrategy instanceof UnitStrategy)) {
+        if (opponentsCash == 0) {
             // they have no cash left, just bid 1 to win
-            currentStrategy = new UnitStrategy(1);
+            currentStrategy = new LastPlusOneStratgey();
+        }
+        else if(currentRound == totalBiddingRounds -1) {
+            // the next round is the last round, use an aggressive strategy (bid everything)
+            currentStrategy = new UnitStrategy(cash);
         }
     }
 

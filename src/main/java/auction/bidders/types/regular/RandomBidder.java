@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class RandomBidder extends AbstractBidder {
 
+    /* Used to generate random bid values */
     private final Random random = new Random();
 
     @Override

@@ -8,8 +8,9 @@ import auction.bidders.AbstractBidder;
  *
  * @author Michael Reid
  */
-public class LastPlusOneBidder extends AbstractBidder {
+public class PreviousPlusOneBidder extends AbstractBidder {
 
+    /* The amount the opponent bid in the previous round */
     private int opponentsPreviousBid;
 
     @Override

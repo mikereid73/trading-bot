@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class MedianPlusOneBidder extends AbstractBidder {
 
+    /* A list of winning bids made by either bidder */
     private final List<Integer> winningBidsList = new LinkedList<>();
 
     @Override
@@ -24,6 +25,7 @@ public class MedianPlusOneBidder extends AbstractBidder {
 
     @Override
     public int placeBid() {
+        // cannot calculate median if no one has won yet
         if (winningBidsList.size() == 0) {
             return 1;
         }
@@ -48,9 +50,9 @@ public class MedianPlusOneBidder extends AbstractBidder {
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
-        if (own > other) {
+        if (own >= other) {
             winningBidsList.add(own);
-        } else if (other > own) {
+        } else if (other >= own) {
             winningBidsList.add(other);
         }
     }

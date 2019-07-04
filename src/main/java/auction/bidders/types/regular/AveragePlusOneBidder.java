@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class AveragePlusOneBidder extends AbstractBidder {
 
+    /* A list of winning bids made by either bidder */
     private final List<Integer> winningBidsList = new LinkedList<>();
 
     @Override
@@ -23,20 +24,20 @@ public class AveragePlusOneBidder extends AbstractBidder {
 
     @Override
     public int placeBid() {
-        int average = (int) winningBidsList.stream()
+        int averagePlusOne = (int) winningBidsList.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElse(0.0)
                 + 1;
-        return getBidOrGetAll(average);
+        return getBidOrGetAll(averagePlusOne);
     }
 
     @Override
     public void bids(int own, int other) {
         super.bids(own, other);
-        if (own > other) {
+        if (own >= other) {
             winningBidsList.add(own);
-        } else if (other > own) {
+        } else if (other >= own) {
             winningBidsList.add(other);
         }
     }

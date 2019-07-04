@@ -11,39 +11,21 @@ import java.util.Objects;
  */
 public class Auction {
 
-    /**
-     * The first bidder in the Auction
-     **/
+    /* The first bidder in the auction */
     private final Bidder bidder1;
 
-    /**
-     * The second bidder in the Auction
-     **/
+    /* The second bidder in the auction */
     private final Bidder bidder2;
 
-    /**
-     * The quantity available to buy in the Auction
-     **/
+    /* The quantity available to buy in the auction */
     private final int quantity;
 
-    /**
-     * The cash available to spend in the Auction
-     **/
+    /* The cash available to spend in the auction */
     private final int cash;
 
-    /**
-     * The callback interface to allow a hook into the Auction bidding rounds
-     **/
+    /* The callback interface to allow a hook into the Auction bidding rounds */
     private AuctionListener auctionListener;
 
-    /**
-     * Create a new Auction with two Bidders, a quantity to auction, and cash to spend.
-     *
-     * @param bidder1  the first bidder
-     * @param bidder2  the second bidder
-     * @param quantity the starting quantity
-     * @param cash     the starting cash
-     */
     public Auction(Bidder bidder1, Bidder bidder2, int quantity, int cash) {
         this.bidder1 = Objects.requireNonNull(bidder1);
         this.bidder2 = Objects.requireNonNull(bidder2);
@@ -51,12 +33,7 @@ public class Auction {
         this.cash = validateCash(cash);
     }
 
-    /**
-     * Run the Auction on a round by round basis. Returns the winning Bidder at the end. Returns null if
-     * there is no winner at the end.
-     *
-     * @return the winning Bidder
-     */
+    /* Run the Auction on a round by round basis. Returns the winning Bidder at the end. */
     public Bidder run() {
         // initialize the bidders with quantity and cash
         bidder1.init(quantity, cash);
@@ -115,12 +92,7 @@ public class Auction {
         }
     }
 
-    /**
-     * Validate if the quantity is allowed in the Auction
-     *
-     * @param quantity the supplied quantity
-     * @return the validated quantity
-     */
+    /* Validate if the quantity is allowed in the auction. Must be even. */
     private int validateQuantity(int quantity) {
         if (quantity % 2 != 0) {
             throw new IllegalArgumentException("quantity must be even");
@@ -128,12 +100,7 @@ public class Auction {
         return quantity;
     }
 
-    /**
-     * Validate if the cash is allowed in the Auction
-     *
-     * @param cash the supplied cash
-     * @return the validated cash
-     */
+    /*  Validate if the cash is allowed in the auction. Must be positive */
     private int validateCash(int cash) {
         if (cash < 0) {
             throw new IllegalArgumentException("cash cannot be less than zero");
@@ -141,17 +108,12 @@ public class Auction {
         return cash;
     }
 
-    /**
-     * Set the callback listener
-     *
-     * @param auctionListener the listener implementation
-     */
     public void addAuctionListener(AuctionListener auctionListener) {
         this.auctionListener = Objects.requireNonNull(auctionListener);
     }
 
     /**
-     * Scorecard class
+     * Scorecard to track the progress of a bidder
      *
      * @author Michael Reid
      */
