@@ -1,7 +1,8 @@
 package auction.bidders.types.strategy;
 
 /**
- * Always bids zero
+ * Always bids zero. It can return some reward if an opponent is too aggressive and runs out of money.
+ * However, in practice it's mainly used for testing when you want an opponent that always loses.
  */
 public class ZeroStrategy extends AbstractStrategy {
 

@@ -2,14 +2,14 @@ package auction.bidders.types.strategy;
 
 import auction.bidders.AbstractBidder;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  * A smart bidder that has an interchangeable behaviour using the Strategy Pattern. A behavior can be
  * swapped in at runtime if it is decided that the current bidding strategy is not working or if the opponents
  * bidding strategy is obvious. In such cases, the preferred strategy can be injected.
+ * <p>
+ * A work in progress that would be very effective with good logic to determine which behaviour to inject.
  *
  * @author Michael Reid
  */
@@ -49,7 +49,6 @@ public class StrategyBidder extends AbstractBidder {
         super.bids(own, other);
 
         currentRound++;
-
         opponentsCash -= other;
 
         // let the strategy know about the newest bids
@@ -63,9 +62,8 @@ public class StrategyBidder extends AbstractBidder {
     private void checkAndChangeStrategy() {
         if (opponentsCash == 0) {
             // they have no cash left, just bid 1 to win
-            currentStrategy = new LastPlusOneStratgey();
-        }
-        else if(currentRound == totalBiddingRounds -1) {
+            currentStrategy = new PreviousPlusOneStrategy();
+        } else if (currentRound == totalBiddingRounds - 1) {
             // the next round is the last round, use an aggressive strategy (bid everything)
             currentStrategy = new UnitStrategy(cash);
         }

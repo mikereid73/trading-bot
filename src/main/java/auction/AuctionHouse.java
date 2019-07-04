@@ -40,7 +40,7 @@ public class AuctionHouse implements AuctionListener {
 
         System.out.println("Starting simulation...");
         for (int i = 0; i < numberOfSimulations; i++) {
-        System.out.format("Simulation number %d of %d\n", i + 1, numberOfSimulations);
+            System.out.format("Simulation number %d of %d\n", i + 1, numberOfSimulations);
             performSimulation(users);
         }
 
@@ -84,12 +84,13 @@ public class AuctionHouse implements AuctionListener {
     private List<User> getTestUsers() {
         final List<User> users = new ArrayList<>();
         users.add(new User("Mike", new StrategyBidder(new MedianPlusOneStrategy())));
-        users.add(new User("Christie", new AveragePlusOneBidder()));
-        //users.add(new User("Niki", new ZeroBidder()));
-        users.add(new User("Mark", new MedianPlusOneBidder()));
+        users.add(new User("Christie", new AverageWinnerPlusOneBidder()));
+        users.add(new User("Niki", new ZeroBidder()));
+        users.add(new User("Mark", new MedianWinnerPlusOneBidder()));
         users.add(new User("Miley", new RandomBidder()));
         users.add(new User("Padraic", new PreviousPlusOneBidder()));
         users.add(new User("Dan", new UnitBidder(3)));
+        users.add(new User("Joe", new GaussianRandomBidder()));
         return users;
     }
 

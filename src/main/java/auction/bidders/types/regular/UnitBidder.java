@@ -3,7 +3,7 @@ package auction.bidders.types.regular;
 import auction.bidders.AbstractBidder;
 
 /**
- * Bids a predefined amount oevery time. When there is not enough cash it will bid what it has left.
+ * Bids a predefined amount every time. When there is not enough cash it will bid what it has left.
  *
  * @author Michael Reid
  */

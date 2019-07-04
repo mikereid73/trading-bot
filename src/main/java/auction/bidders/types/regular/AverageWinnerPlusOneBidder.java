@@ -39,7 +39,7 @@ public class AverageWinnerPlusOneBidder extends AbstractBidder {
         currentBiddingRound++;
 
         // initial bid, be somewhat aggressive
-        if(currentBiddingRound == 1) {
+        if (currentBiddingRound == 1) {
             return getBidOrGetAll(cash / totalBiddingRounds);
         }
 

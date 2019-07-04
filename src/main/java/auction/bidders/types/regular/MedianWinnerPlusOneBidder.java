@@ -19,7 +19,7 @@ public class MedianWinnerPlusOneBidder extends AbstractBidder {
     /* A list of winning bids made by either bidder */
     private final List<Integer> winningBidsList = new LinkedList<>();
 
-    /* The total number of bidding rounds in the acution */
+    /* The total number of bidding rounds in the auction */
     private int totalBiddingRounds;
 
     /* The current bidding round in the auction */

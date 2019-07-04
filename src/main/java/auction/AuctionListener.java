@@ -8,6 +8,7 @@ package auction;
 public interface AuctionListener {
     /**
      * Reports back with the values of the two bids made by the Bidders
+     *
      * @param bid1 the bid made by bidder1
      * @param bid2 the bid made by bidder2
      */

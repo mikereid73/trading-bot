@@ -2,11 +2,13 @@ package auction.bidders.types.strategy;
 
 /**
  * Always bids the opponents previous bid plus one. Small initial bid to get things started.
+ * If it cannot afford a bid it will go all in.
  *
  * @author Michael Reid
  */
-public class LastPlusOneStratgey extends AbstractStrategy {
+public class PreviousPlusOneStrategy extends AbstractStrategy {
 
+    /* The amount the opponent bid in the previous round */
     private int opponentsPreviousBid;
 
     @Override

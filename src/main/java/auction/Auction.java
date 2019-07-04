@@ -5,7 +5,14 @@ import auction.bidders.Bidder;
 import java.util.Objects;
 
 /**
- * Auction class to simulate an Auction between two Bidder implementations
+ * Auction class to simulate an Auction between two Bidder implementations. It is initalized with the two
+ * bidders, the starting quantity and the starting cash. Bidders are initialised, a new scorecard is created
+ * for each bidder and the bidding rounds commence.
+ * <p>
+ * Bids are placed, checked for validity (can the bidder actually afford it), and finally a winner is decided
+ * for the round.
+ * <p>
+ * Once all bidding rounds are complete, the winner is returned. If there is no winner, null is returned.
  *
  * @author Michael Reid
  */
