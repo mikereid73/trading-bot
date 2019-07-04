@@ -5,7 +5,7 @@ import auction.bidders.AbstractBidder;
 import java.util.Random;
 
 /**
- * Bids a random amount of cash.
+ * Bids a random amount of cash within it's cash limit.
  *
  * @author Michael Reid
  */

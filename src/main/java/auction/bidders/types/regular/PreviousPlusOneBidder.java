@@ -4,7 +4,7 @@ import auction.bidders.AbstractBidder;
 
 /**
  * Always bids the opponents previous bid plus one. Small initial bid to get things started.
- * If it cannot afford a bid, it goes all in regardless.
+ * If it cannot afford a bid it will go all in.
  *
  * @author Michael Reid
  */
