@@ -35,6 +35,7 @@ public class StrategyBidder extends AbstractBidder {
         currentStrategy = defaultStrategy;
 
         totalBiddingRounds = quantity / 2;
+        currentRound = 0;
     }
 
     @Override

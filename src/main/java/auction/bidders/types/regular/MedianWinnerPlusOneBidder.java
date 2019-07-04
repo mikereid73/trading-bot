@@ -31,6 +31,7 @@ public class MedianWinnerPlusOneBidder extends AbstractBidder {
 
         winningBidsList.clear();
         totalBiddingRounds = quantity / 2;
+        currentBiddingRound = 0;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class MedianWinnerPlusOneBidder extends AbstractBidder {
 
         // if the list has an even number of elements, take the average of the middle two values
         // if the list has an odd number of elements, take the middle value
+        System.out.println(winningBidsList.size());
         int median = (int) (winningBidsList.size() % 2 == 0 ?
                 winningBidsList
                         .stream()
