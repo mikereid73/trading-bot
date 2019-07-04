@@ -2,8 +2,8 @@ package auction;
 
 import auction.bidders.Bidder;
 import auction.bidders.types.regular.*;
-import auction.bidders.types.strategy.LastPlusOneStratgey;
 import auction.bidders.types.strategy.MedianPlusOneStrategy;
+import auction.bidders.types.strategy.StrategyBidder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,27 +20,49 @@ import java.util.ListIterator;
 public class AuctionHouse implements AuctionListener {
 
     /* The quantity available for auction */
-    private static final int QUANTITY = 20;
+    private final int quantity;
 
     /* The cash available for auction */
-    private static final int CASH = 100;
+    private final int cash;
+
+    /* The number of times to repeat the auction simulations */
+    private final int numberOfSimulations;
+
+    public AuctionHouse(int quantity, int cash, int numberOfSimulations) {
+        this.quantity = quantity;
+        this.cash = cash;
+        this.numberOfSimulations = numberOfSimulations;
+    }
 
     /* Begin simulating auctions between users and their bidders */
     public void startAuctionSimulations() {
         final List<User> users = getTestUsers();
+
+        System.out.println("Starting simulation...");
+        for (int i = 0; i < numberOfSimulations; i++) {
+        System.out.format("Simulation number %d of %d\n", i + 1, numberOfSimulations);
+            performSimulation(users);
+        }
+
+        printLeaderBoard(users);
+    }
+
+    private void performSimulation(List<User> users) {
         for (final User user1 : users) {
             for (final User user2 : users) {
                 if (user1 == user2) {
+                    // the same user instance shouldn't be able to play against itself
                     continue;
                 }
 
                 final Bidder bidder1 = user1.getBidder();
                 final Bidder bidder2 = user2.getBidder();
                 if (bidder1 == bidder2) {
+                    // the same bidder instance shouldn't be able to play against itself
                     continue;
                 }
 
-                final Auction auction = new Auction(bidder1, bidder2, QUANTITY, CASH);
+                final Auction auction = new Auction(bidder1, bidder2, quantity, cash);
                 // hook into the action so we can spy on round by round bids
                 auction.addAuctionListener(this);
 
@@ -57,18 +79,17 @@ public class AuctionHouse implements AuctionListener {
                 }
             }
         }
-
-        printLeaderBoard(users);
     }
 
     private List<User> getTestUsers() {
         final List<User> users = new ArrayList<>();
         users.add(new User("Mike", new StrategyBidder(new MedianPlusOneStrategy())));
-        //users.add(new User("Christie", new AveragePlusOneBidder()));
-        users.add(new User("Niki", new ZeroBidder()));
-        //users.add(new User("Mark", new MedianPlusOneBidder()));
-        //users.add(new User("Miley", new RandomBidder()));
-        //users.add(new User("Padraic", new LastPlusOneBidder()));
+        users.add(new User("Christie", new AveragePlusOneBidder()));
+        //users.add(new User("Niki", new ZeroBidder()));
+        users.add(new User("Mark", new MedianPlusOneBidder()));
+        users.add(new User("Miley", new RandomBidder()));
+        users.add(new User("Padraic", new LastPlusOneBidder()));
+        users.add(new User("Dan", new UnitBidder(3)));
         return users;
     }
 
@@ -93,7 +114,6 @@ public class AuctionHouse implements AuctionListener {
      */
     @Override
     public void onBidsRevealed(int bid1, int bid2) {
-        //System.out.format("Bidder 1 made a bid of: %d\n",bid1);
-        //System.out.format("Bidder 2 made a bid of: %d\n",bid2);
+        // System.out.format("Bidder 1 made a bid of: %d and Bidder 2 made a bid of %d\n",bid1, bid2);
     }
 }

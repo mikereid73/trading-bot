@@ -1,11 +1,9 @@
-package auction.bidders.types.regular;
+package auction.bidders.types.strategy;
 
 import auction.bidders.AbstractBidder;
-import auction.bidders.types.strategy.BiddingStrategy;
-import auction.bidders.types.strategy.LastPlusOneStratgey;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,10 +15,9 @@ import java.util.Objects;
  */
 public class StrategyBidder extends AbstractBidder {
 
-    private static final Logger logger = LoggerFactory.getLogger(StrategyBidder.class);
-
     private final BiddingStrategy defaultStrategy;
     private BiddingStrategy currentStrategy;
+
     private int opponentsCash;
 
     public StrategyBidder(BiddingStrategy defaultStrategy) {
@@ -47,20 +44,19 @@ public class StrategyBidder extends AbstractBidder {
         super.bids(own, other);
 
         opponentsCash -= other;
-        checkAndChangeStrategy();
 
         // let the strategy know about the newest bids
         currentStrategy.showBids(own, other);
+        checkAndChangeStrategy();
     }
 
     /**
      * A VERY BASIC concept for adapting the bidding logic.
      */
     private void checkAndChangeStrategy() {
-        // they have no cash left, just bid 1 to win
-        if (opponentsCash == 0 && !(currentStrategy instanceof LastPlusOneStratgey)) {
-            logger.debug("opponent has 0 cash remaining. switching {} to LastPlusOneBidder strategy. ", currentStrategy);
-            currentStrategy = new LastPlusOneStratgey();
+        if (opponentsCash == 0 && !(currentStrategy instanceof UnitStrategy)) {
+            // they have no cash left, just bid 1 to win
+            currentStrategy = new UnitStrategy(1);
         }
     }
 
